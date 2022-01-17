@@ -5,18 +5,18 @@ const { Validator } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     email: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(50),
       allowNull: false,
       validate: {
         len: [3, 256]
       },
     },
     hashedPassword: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       allowNull: false
     },
     role: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       allowNull: false
     }
   },
