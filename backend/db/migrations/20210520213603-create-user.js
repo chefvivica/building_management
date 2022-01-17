@@ -1,4 +1,7 @@
 'use strict';
+
+const { DataTypes } = require("sequelize/types");
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Users', {
@@ -8,26 +11,18 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      username: {
-        allowNull: false,
-        unique: true,
-        type: Sequelize.STRING(30)
-      },
-      fullName: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
       email: {
         allowNull: false,
         unique: true,
         type: Sequelize.STRING(256)
       },
-      about: {
-        type: Sequelize.STRING
-      },
       hashedPassword: {
         allowNull: false,
         type: Sequelize.STRING
+      },
+      role: {
+        allowNull:false,
+        type: Sequelize.STRING(100)
       },
       createdAt: {
         allowNull: false,
