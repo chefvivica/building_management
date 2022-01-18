@@ -1,30 +1,29 @@
 'use strict';
-const faker = require('faker');
 const bcrypt = require('bcryptjs');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Users', [
       {
-        username: 'Demo-lition',
-        fullName: 'Demo Lition',
-        email: 'demo@user.io',
-        about: "I'm a demo user!",
+        email: 'demo_admin@user.io',
         hashedPassword: bcrypt.hashSync('password'),
+        role: 'Admin',
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
-        username: 'FakeUser1',
-        fullName: "Fake User 1",
-        email: faker.internet.email(),
-        about: "I have not filled this in!",
-        hashedPassword: bcrypt.hashSync(faker.internet.password()),
+        email: 'demo_user1@user.io',
+        hashedPassword: bcrypt.hashSync('password'),
+        role: 'Tenant',
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
-        username: 'FakeUser2',
-        fullName: "Fake User 2",
-        email: faker.internet.email(),
-        about: "I have not filled this in!",
-        hashedPassword: bcrypt.hashSync(faker.internet.password()),
+        email: 'demo_user2@user.io',
+        hashedPassword: bcrypt.hashSync('password'),
+        role: 'Tenant',
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
     ], {});
   },

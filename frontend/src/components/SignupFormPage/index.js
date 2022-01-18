@@ -8,10 +8,7 @@ function SignupFormPage() {
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
-  const [username, setUsername] = useState('');
-  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
-  const [about, setAbout] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errors, setErrors] = useState([]);
@@ -22,7 +19,7 @@ function SignupFormPage() {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
-      return dispatch(sessionActions.signup({ username, fullName, email, about, password }))
+      return dispatch(sessionActions.signup({ email, password }))
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
@@ -39,26 +36,6 @@ function SignupFormPage() {
         </ul>
         <div className='form--element-left'>
           <label>
-            Username
-          <input
-              className="form--element"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Full Name
-          <input
-              className="form--element"
-              type="text"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              required
-            />
-          </label>
-          <label>
             Email
             <input
               className="form--element"
@@ -70,7 +47,7 @@ function SignupFormPage() {
           </label>
           <label>
             Password
-          <input
+            <input
               className="form--element"
               type="password"
               value={password}
@@ -80,7 +57,7 @@ function SignupFormPage() {
           </label>
           <label>
             Confirm Password
-          <input
+            <input
               className="form--element"
               type="password"
               value={confirmPassword}
@@ -89,19 +66,9 @@ function SignupFormPage() {
             />
           </label>
         </div>
-        <div className='form--element-right'>
-          <label>
-            About you
-          <textarea
-              className="form--element"
-              value={about}
-              onChange={(e) => setAbout(e.target.value)}
-            />
-          </label>
-          <div className="button--container">
-            <button className="login__button" type="submit">Log In</button>
-            <button className="demo__button" type="submit">Demo</button>
-          </div>
+        <div className="button--container">
+          <button className="login__button" type="submit">Log In</button>
+          <button className="demo__button" type="submit">Demo</button>
         </div>
       </div>
     </form >

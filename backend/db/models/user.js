@@ -1,22 +1,25 @@
 'use strict';
 const bcrypt = require('bcryptjs');
 const { Validator } = require('sequelize');
+const Servicerequest = require("./servicerequest");
+const Apt = require("./apt");
+const Comment = require("./comment")
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     email: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(100),
       allowNull: false,
       validate: {
         len: [3, 256]
       },
     },
     hashedPassword: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(100),
       allowNull: false
     },
     role: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(100),
       allowNull: false
     }
   },
@@ -66,8 +69,17 @@ module.exports = (sequelize, DataTypes) => {
     return await User.scope('currentUser').findByPk(user.id);
   };
 
-  User.associate = function (models) {
-    // associations can be defined here
-  };
+  User.associate = function(models){
+    User.hasMany(models.Apt, { foreignKey: 'userId'})
+
+    User.hasMany(models.ServiceRequest,{ foreignKey: 'buildingAdminId'})
+
+    User.hasMany(models.ServiceRequest,{ foreignKey: 'requesterId' })
+
+
+    User.hasMany(models.Comment, { foreignKey: 'userId'})
+
+  }
+
   return User;
 };

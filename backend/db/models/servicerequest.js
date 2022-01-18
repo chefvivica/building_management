@@ -1,4 +1,7 @@
 'use strict';
+const User = require("./user")
+const Apt = require("./apt")
+const Comment = require("./comment")
 module.exports = (sequelize, DataTypes) => {
   const ServiceRequest = sequelize.define('ServiceRequest', {
     aptId: {
@@ -26,8 +29,16 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, {});
+
+
   ServiceRequest.associate = function(models) {
-    // associations can be defined here
+    ServiceRequest.hasMany(models.Comment, {foreignKey: 'serviceRequestId'})
+    ServiceRequest.belongsTo(models.User, {foreignKey: 'buildingAdminId'});
+    ServiceRequest.belongsTo(models.User, {foreignKey: 'requesterId'});
+    ServiceRequest.belongsTo(models.Apt,{foreignKey: 'aptId'})
+
+
   };
+
   return ServiceRequest;
 };

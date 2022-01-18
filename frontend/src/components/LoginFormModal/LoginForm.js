@@ -24,7 +24,7 @@ function LoginForm() {
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
       <label>
-        Username or Email
+        Email
         <input
           className="form--element--container"
           type="text"
