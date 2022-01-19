@@ -1,4 +1,7 @@
 'use strict';
+const User = require("./user")
+const ServiceRequest = require("./servicerequest")
+
 module.exports = (sequelize, DataTypes) => {
   const Comment = sequelize.define('Comment', {
     serviceRequestId:{
@@ -15,7 +18,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   Comment.associate = function(models) {
-
+    Comment.belongsTo(models.User, {foreignKey: 'userId'});
+    Comment.belongsTo(models.ServiceRequest, {foreignKey: 'serviceRequestId'})
   };
+
+
   return Comment;
 };

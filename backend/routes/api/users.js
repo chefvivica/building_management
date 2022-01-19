@@ -7,18 +7,6 @@ const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 
 const validateSignup = [
-  check('username')
-    .exists({ checkFalsy: true })
-    .isLength({ min: 4 })
-    .withMessage('Please provide a username with at least 4 characters.'),
-  check('username')
-    .not()
-    .isEmail()
-    .withMessage('Username cannot be an email.'),
-  check('username')
-    .exists({ checkFalsy: true })
-    .isLength({ min: 2 })
-    .withMessage('Please add a name with at least 2 characters.'),
   check('email')
     .exists({ checkFalsy: true })
     .isEmail()
@@ -30,12 +18,21 @@ const validateSignup = [
   handleValidationErrors,
 ];
 
+router.get(
+  '/vivica',
+
+  asyncHandler(async(req,res)=>{
+    const users = await User.findAll();
+    return res.json(users);
+  })
+)
+
 router.post(
-  '/',
+  '/signup',
   validateSignup,
   asyncHandler(async (req, res) => {
-    const { username, fullName, email, about, password } = req.body;
-    const user = await User.signup({ username, fullName, email, about, password });
+    const { email, password } = req.body;
+    const user = await User.signup({ email, password });
 
     await setTokenCookie(res, user);
 

@@ -1,4 +1,8 @@
 'use strict';
+
+const ServiceRequest = require("./servicerequest");
+const User = require("./user")
+
 module.exports = (sequelize, DataTypes) => {
   const Apt = sequelize.define('Apt', {
     userId:{
@@ -6,12 +10,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     name: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(100),
       allowNull: false
     }
   }, {});
   Apt.associate = function(models) {
-    Apt.belongsTo(User);
-  };
+    Apt.hasMany(models.ServiceRequest, {foreignKey: 'aptId'})
+    Apt.belongsTo(models.User, {foreignKey: 'userId'});
+  }
   return Apt;
 };

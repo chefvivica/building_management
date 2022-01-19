@@ -14,15 +14,15 @@ module.exports = {
       email: {
         allowNull: false,
         unique: true,
-        type: Sequelize.STRING(50)
+        type: Sequelize.STRING(100)
       },
       hashedPassword: {
         allowNull: false,
-        type: Sequelize.STRING(20)
+        type: Sequelize.STRING(100)
       },
       role: {
         allowNull:false,
-        type: Sequelize.STRING(20)
+        type: Sequelize.STRING(100)
       },
       createdAt: {
         allowNull: false,
